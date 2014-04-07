@@ -3,14 +3,13 @@ $project = File.basename(Dir.getwd)
 $ipfile  = "#{ENV['HOME']}/.vagrant_ips"
 
 def findip()
-  seen    = [];
   number  = nil;
 
-  if !File.exists?($ipfile)
-    IO.write($ipfile, '{}');
+  if File.exists?($ipfile)
+    existing = JSON.parse( IO.read($ipfile) )
+  else
+    existing = {};
   end
-
-  existing = JSON.parse( IO.read($ipfile) )
 
   number = existing[$project]
 
