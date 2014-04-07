@@ -7,30 +7,24 @@ def findip()
   number  = nil;
 
   if !File.exists?($ipfile)
-    File.open($ipfile, 'w') {}
+    IO.write($ipfile, '{}');
   end
 
-  File.open($ipfile, 'r+') do |f|
-    f.each_line do |line|
-      line_project = line.split(' ')[0];
-      line_number  = line.split(' ')[1].to_i;
-      seen.push(line_number);
+  existing = JSON.parse( IO.read($ipfile) )
 
-      if line_project == $project
-        number = line_number;
-      end 
+  number = existing[$project]
+
+  if !number
+    number = 2;
+
+    while existing.values.include?(number) 
+      number += 1;
     end
 
-    if number == nil
-      number = 2;
-
-      while seen.include?(number) 
-        number += 1;
-      end
-
-      f.puts("#{$project} #{number}");
-    end
+    existing[$project] = number;
   end
+
+  IO.write($ipfile, existing.to_json);
 
   address = "33.33.33.#{number}"
 
