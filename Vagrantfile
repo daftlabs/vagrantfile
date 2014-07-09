@@ -2,14 +2,18 @@
 $project = File.basename(Dir.getwd)
 $ipfile  = "#{ENV['HOME']}/.vagrant_ips"
 
-def findip()
-  number  = nil;
-
+def getexisting()
   if File.exists?($ipfile)
     existing = JSON.parse( IO.read($ipfile) )
   else
     existing = {};
   end
+
+  return existing;
+end
+
+def findprojectid()
+  existing = getexisting()
 
   number = existing[$project]
 
@@ -19,9 +23,17 @@ def findip()
     while existing.values.include?(number) 
       number += 1;
     end
-
-    existing[$project] = number;
   end
+
+  return number;
+end
+
+def findip()
+  existing = getexisting()
+
+  number = findprojectid()
+
+  existing[$project] = number;
 
   IO.write($ipfile, existing.to_json);
 
@@ -34,6 +46,7 @@ end
 Vagrant.configure("2") do |config|
   config.vm.box = "opscode-ubuntu-12.04-chef11"
   config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.2.0.box"
+  config.vm.network "forwarded_port", guest: "80", host: "808#{findprojectid()}"
 
   config.vm.provider "virtualbox" do |box|
     box.memory = 1024
