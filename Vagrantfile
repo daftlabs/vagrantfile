@@ -52,5 +52,4 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: findip()
   config.vm.synced_folder "./", "/var/www/#{$project}", :mount_options => ['dmode=777,fmode=777']
-  config.vm.synced_folder "./logs", "/var/log/apache2", :mount_options => ['dmode=777,fmode=777']
 end
