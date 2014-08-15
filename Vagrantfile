@@ -54,8 +54,7 @@ Vagrant.configure("2") do |config|
     chef.environment       = "development"
     chef.cookbooks_path    = "cookbooks/"
     chef.environments_path = "environments/"
-
-    chef.add_recipe $project
+    chef.json              = JSON.parse( IO.read("attributes/default.json") )
   end
 
   config.vm.network :private_network, ip: findip()
