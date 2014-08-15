@@ -44,7 +44,6 @@ end
 Vagrant.configure("2") do |config|
   config.vm.box = "opscode-ubuntu-12.04-chef11"
   config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.2.0.box"
-  #config.vm.network "forwarded_port", guest: "80", host: "808#{findprojectid()}"
 
   config.vm.provider "virtualbox" do |box|
     box.memory = 1024
@@ -52,12 +51,11 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "chef_solo" do |chef|
-    chef.node_name = "development"
-    chef.add_recipe $project
+    chef.environment       = "development"
+    chef.cookbooks_path    = "cookbooks/"
+    chef.environments_path = "environments/"
 
-    if File.file?("config.json") then
-      chef.json = JSON.parse( IO.read("config.json") )
-    end
+    chef.add_recipe $project
   end
 
   config.vm.network :private_network, ip: findip()
