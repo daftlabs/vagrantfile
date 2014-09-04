@@ -42,8 +42,9 @@ def findip()
 end
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "opscode-ubuntu-12.04-chef11"
-  config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.2.0.box"
+  config.vm.box = "opscode-ubuntu-14.04"
+  config.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04_chef-provisionerless.box"
+  config.omnibus.chef_version = :latest
 
   config.vm.provider "virtualbox" do |box|
     box.memory = 1024
