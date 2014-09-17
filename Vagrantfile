@@ -44,7 +44,7 @@ end
 Vagrant.configure("2") do |config|
   config.vm.box = "opscode-ubuntu-14.04"
   config.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box"
-  config.omnibus.chef_version = :latest
+  config.omnibus.chef_version = '11.16.0'
 
   config.vm.provider "virtualbox" do |box|
     box.memory = 1024
