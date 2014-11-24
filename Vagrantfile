@@ -44,7 +44,10 @@ end
 Vagrant.configure("2") do |config|
   config.vm.box = "opscode-ubuntu-14.04"
   config.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box"
-  config.omnibus.chef_version = '11.16.0'
+
+  config.omnibus.chef_version      = '11.16.0'
+  config.berkshelf.enabled         = true
+  config.berkshelf.berksfile_path  = './Berksfile'
 
   config.vm.provider "virtualbox" do |box|
     box.memory = 1024
@@ -52,8 +55,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "chef_solo" do |chef|
+    chef.cookbooks_path    = ["~/.berkshelf/cookbooks", "."]
     chef.environment       = "development"
-    chef.cookbooks_path    = "cookbooks/"
     chef.environments_path = "environments/"
     chef.json              = JSON.parse( IO.read("attributes/default.json") )
   end
