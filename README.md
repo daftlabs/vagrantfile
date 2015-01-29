@@ -1,3 +1,3 @@
 Requirements
 ============
-(vagrant-omnibus)[https://github.com/schisamo/vagrant-omnibus]
+[vagrant-omnibus](https://github.com/schisamo/vagrant-omnibus)
