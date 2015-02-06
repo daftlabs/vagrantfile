@@ -52,10 +52,11 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "chef_solo" do |chef|
-    chef.environment       = "development"
-    chef.cookbooks_path    = "cookbooks/"
-    chef.environments_path = "environments/"
-    chef.json              = JSON.parse( IO.read("attributes/default.json") )
+    chef.environment         = "development"
+    chef.cookbooks_path      = "cookbooks/"
+    chef.environments_path   = "environments/"
+    chef.json                = JSON.parse( IO.read("attributes/default.json") )
+    config.berkshelf.enabled = false
   end
 
   config.vm.network :private_network, ip: findip()
