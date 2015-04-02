@@ -51,11 +51,12 @@ Vagrant.configure("2") do |config|
     box.cpus = 1
   end
 
-  config.vm.provision "chef_solo" do |chef|
+  config.vm.provision "chef_zero" do |chef|
     chef.environment       = "development"
     chef.cookbooks_path    = "cookbooks/"
     chef.environments_path = "environments/"
     chef.json              = JSON.parse( IO.read("attributes/default.json") )
+    chef.data_bags_path    = "data_bags/"
   end
 
   config.vm.network :private_network, ip: findip()
