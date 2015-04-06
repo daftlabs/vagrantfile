@@ -52,6 +52,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "chef_zero" do |chef|
+    chef.log_level         = :debug
     chef.environment       = "development"
     chef.cookbooks_path    = "cookbooks/"
     chef.environments_path = "environments/"
