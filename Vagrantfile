@@ -49,13 +49,17 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |box|
     box.memory = 1024
     box.cpus = 1
+    box.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
 
+  config.vm.provision :shell, :inline => 'apt-get update'
+
   config.vm.provision "chef_solo" do |chef|
-    chef.environment       = "development"
-    chef.cookbooks_path    = "cookbooks/"
-    chef.environments_path = "environments/"
-    chef.json              = JSON.parse( IO.read("attributes/default.json") )
+    chef.custom_config_path = "./vendor/vagrantfile/Vagrantfile.chef"
+    chef.environment        = "development"
+    chef.cookbooks_path     = "cookbooks/"
+    chef.environments_path  = "environments/"
+    chef.json               = JSON.parse( IO.read("attributes/default.json") )
   end
 
   config.vm.network :private_network, ip: findip()
