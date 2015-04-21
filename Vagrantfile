@@ -49,6 +49,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |box|
     box.memory = 1024
     box.cpus = 1
+    box.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
 
   config.vm.provision "chef_solo" do |chef|
