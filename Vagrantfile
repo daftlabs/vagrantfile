@@ -52,6 +52,8 @@ Vagrant.configure("2") do |config|
     box.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
 
+  config.vm.provision :shell, :inline => 'apt-get update'
+
   config.vm.provision "chef_solo" do |chef|
     chef.environment       = "development"
     chef.cookbooks_path    = "cookbooks/"
