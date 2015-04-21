@@ -55,10 +55,11 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => 'apt-get update'
 
   config.vm.provision "chef_solo" do |chef|
-    chef.environment       = "development"
-    chef.cookbooks_path    = "cookbooks/"
-    chef.environments_path = "environments/"
-    chef.json              = JSON.parse( IO.read("attributes/default.json") )
+    chef.custom_config_path = "./vendor/vagrantfile/Vagrantfile.chef"
+    chef.environment        = "development"
+    chef.cookbooks_path     = "cookbooks/"
+    chef.environments_path  = "environments/"
+    chef.json               = JSON.parse( IO.read("attributes/default.json") )
   end
 
   config.vm.network :private_network, ip: findip()
