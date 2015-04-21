@@ -49,7 +49,8 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |box|
     box.memory = 1024
     box.cpus = 1
-    box.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+    #this requires using shared folders, resolving
+    #box.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/#{$project}", "1"]
   end
 
   config.vm.provision :shell, :inline => 'apt-get update'
