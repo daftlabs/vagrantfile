@@ -75,7 +75,7 @@ Vagrant.configure("2") do |config|
       json = JSON.parse( IO.read("attributes/default.json") )
       json.store('project', $project)
       
-      chef.custom_config_path = "./vendor/vagrantfile/Vagrantfile.chef"
+      #chef.custom_config_path = "./vendor/vagrantfile/Vagrantfile.chef"
       chef.environment        = "development"
       chef.cookbooks_path     = "cookbooks/"
       chef.environments_path  = "environments/"
