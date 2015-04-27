@@ -82,8 +82,8 @@ Vagrant.configure("2") do |config|
 	  chef.json               = json
 	end
 	
-	config.vm.network :private_network, ip: findip()
-	
   end
+  
+  config.vm.network :private_network, ip: findip()
   
 end
