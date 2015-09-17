@@ -53,8 +53,8 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |box, override|
     box.memory = 1024
     box.cpus = 1
-    
-    if RbConfig::CONFIG['host_os'] =~ /mswin|win|mingw/
+
+    if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
       # Allows long filenames in Windows
       # See: https://github.com/mitchellh/vagrant/issues/1953
       box.customize ["sharedfolder", "add", :id, "--name", "project", "--hostpath", (("//?/" + File.dirname(__FILE__)).gsub("/","\\"))]
