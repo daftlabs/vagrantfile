@@ -54,7 +54,6 @@ Vagrant.configure("2") do |config|
     box.memory = 1024
     box.cpus = 1
 
-    puts RbConfig::CONFIG['host_os'] 
     if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
       # Allows long filenames in Windows
       # See: https://github.com/mitchellh/vagrant/issues/1953
